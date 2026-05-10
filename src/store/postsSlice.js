@@ -11,14 +11,18 @@ const postsSlice = createSlice(
         },
         extraReducers: (builder) => {
             builder.addCase(fetchPosts.pending, (state) => {
-
+                state.isLoading = true
             })
-            builder.addCase(fetchPosts.fulfilled, (state) => {
-
+            builder.addCase(fetchPosts.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.posts = action.payload;
             })
-            builder.addCase(fetchPosts.rejected, (state) => {
-
+            builder.addCase(fetchPosts.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = action.payload;
             })
         }
     }
 )
+
+export default postsSlice.reducer
